@@ -65,6 +65,7 @@ import chinese.edit
 import chinese.models.compatibility
 import chinese.models.ruby
 import chinese.models.ruby_synonyms
+import chinese.models.chinese_cloze
 import chinese.ui
 
     

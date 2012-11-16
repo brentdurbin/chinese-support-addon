@@ -18,11 +18,16 @@
 
 import re
 
-from aqt import mw
-from anki.hooks import addHook
+from aqt import mw, utils
+from aqt.editor import Editor
+from anki.hooks import addHook, wrap
+
+from chinese.config import chinese_support_config
 
 import Chinese_support
 import edit_behavior
+import edit_functions
+import translate
 
 # Focus lost hook
 ##########################################################################
@@ -48,7 +53,49 @@ def on_focus_lost(flag, fields_data, focus_field):
 #        print "Left field ", updated_field, "(polluted)" 
 #    else:
 #        print "Left field ", updated_field, "(clean)" 
-
     return flag
+
+def onChineseCloze(self):
+    # todo: replace with a preference option.
+    addPinyinFlag = True
+    highest = 0
+    for name, val in self.note.items():
+        m = re.findall("\{\{c(\d+)::", val)
+        if m:
+            highest = max(highest, sorted([int(x) for x in m])[-1])
+    
+    highest += 1
+    # must start at 1
+    highest = max(1, highest)
+
+    tempText = ""
+    for name, val in self.note.items():
+        tempText += "name: " + name + " val: " + val + "\n"
+    sel = self.web.selectedText()
+    tempText += "selectedText: " + sel + "\n"
+
+    addedPinyin = ""
+    if chinese_support_config.options["clozeOptions"] == "AddPinyin":
+        addedPinyin = "::" + edit_functions.transcribe(sel)
+
+    trans = translate.cloze_translate_cjklib(sel)
+    self.note["Definition"] += sel + ": " + trans
+    self.note["Stroke Order Links"] += edit_functions.get_stroke_order_links(sel)
+
+    tempText += "trans: " + trans + "\n"
+
+    self.web.eval("wrap('{{c%(high)d::', '%(pinyin)s}}');" %  \
+        {"high": highest, "pinyin": addedPinyin})
+
+    # Hack to update the GUI - should probalby replace w/something more appropriate.
+    self.setNote(self.note)
+
+    #utils.showInfo(tempText)
+
+def mySetupButtons(self):
+    but = self._addButton("cloze", lambda s=self: onChineseCloze(self), _("Ctrl+Shift+G"), _("Chinese Cloze deletion (Ctrl+Shift+G)"), text=u"[Pīnyīn]")
+    but.setFixedWidth(40)
+
+Editor.setupButtons = wrap(Editor.setupButtons, mySetupButtons)
 
 addHook('editFocusLost', on_focus_lost)

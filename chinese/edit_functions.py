@@ -158,8 +158,8 @@ def hanzi(text):
     Eg: '你[nǐ][You]' becomes '你'.
     '''    
     text = re.sub(u'([\u4e00-\u9fff])(\[[^[]+?\])', r'\1', text)
-    text = re.sub(r'\[sound:.[^[]+?\]', '', text)
-    text = re.sub(r'([^\u4e00-\u9fff])\[[^[]+?\]\s*$', r'\1', text)
+    text = re.sub(r'\[sound:.[^[]+?\]]', '', text)
+    text = re.sub(r'([^\u4e00-\u9fff])\[[^[]+?]\]\s*$', r'\1', text)
     return text
 
 def transcribe(text, transcription=None, only_one=True, try_dict_first=True):
@@ -444,4 +444,17 @@ def get_character_transcription(hanzi, transcription=None, only_one=False):
     if bopomofo:
         text = bopomofo_module.bopomofo(no_accents(text))
     return text
+
+def get_stroke_order_links(hanzi_str):
+    link_str = ""
+    for hanzi in hanzi_str:
+        repr_str = repr(hanzi)
+        strip_repr_str = repr_str.replace('u\'\\u', '')
+        strip_repr_str = strip_repr_str.strip('\'')
+        link_str += u'<a href=\"http://www.learnchineseez.com/read-write/traditional/view.php?code=' + \
+                strip_repr_str + '&last=1\"><span style=\"text-decoration: underline; color:#005500;\">%s</span></a>' % hanzi
+        link_str += u' '
+    return link_str
+
+
 

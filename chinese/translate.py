@@ -67,6 +67,19 @@ def translate_cjklib(chinese):
     r = re.sub(r"(.)/+(.)", r"\1<br>\2", r)
     r = re.sub(r"/", r"", r)
     return r
+
+def cloze_translate_cjklib(chinese):
+    global cjkdict
+    if None == cjkdict:
+        #No CJKlib dictionary set
+        return ""
+
+    r = ''
+    for dd in cjkdict.getForHeadword(chinese):
+        r += dd[3]
+    r = re.sub(r"(.)/+(.)", r"\1; \2", r)
+    r = re.sub(r"/", r"", r)
+    return r + "<br/>"
     
 
 def translate(chinese):

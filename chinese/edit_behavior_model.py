@@ -39,6 +39,19 @@ def update_fields(field, updated_field, model_name, model_type):
             field["Hanzi4"] = \
                 colorize( ruby( accentuate_pinyin( field["Hanzi4"] ) ) )
 
+    # New case
+    elif model_type == "Chinese Cloze":
+        if updated_field == "Text":
+            if field["Pinyin"] == "":
+                # if Google Translate API starts working,
+                # add Pinyin here, otherwise use the existing
+                # transcribe.
+                # Consider creating a transcribe function that
+                # is more geared to sentences, which will make 
+                # a good guess at grouping words.
+                field["Pinyin"] = transcribe(field["Text"])
+                pass
+
     #2nd case : use the old Anki1 Pinyin-toolkit rules if the deck is
     #called "Chinese" or was created as "Chinese (compatibility)" from
     #Anki2.
