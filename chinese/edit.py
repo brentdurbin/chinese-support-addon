@@ -55,9 +55,7 @@ def on_focus_lost(flag, fields_data, focus_field):
 #        print "Left field ", updated_field, "(clean)" 
     return flag
 
-def onChineseCloze(self):
-    # todo: replace with a preference option.
-    addPinyinFlag = True
+def on_chinese_cloze(self):
     highest = 0
     for name, val in self.note.items():
         m = re.findall("\{\{c(\d+)::", val)
@@ -68,34 +66,34 @@ def onChineseCloze(self):
     # must start at 1
     highest = max(1, highest)
 
-    tempText = ""
+    temp_text = ""
     for name, val in self.note.items():
-        tempText += "name: " + name + " val: " + val + "\n"
+        temp_text += "name: " + name + " val: " + val + "\n"
     sel = self.web.selectedText()
-    tempText += "selectedText: " + sel + "\n"
+    temp_text += "selectedText: " + sel + "\n"
 
-    addedPinyin = ""
-    if chinese_support_config.options["clozeOptions"] == "AddPinyin":
-        addedPinyin = "::" + edit_functions.transcribe(sel)
+    added_pinyin = ""
+    if chinese_support_config.options["cloze_options"] == "Add Pinyin":
+        added_pinyin = "::" + edit_functions.transcribe(sel)
 
     trans = translate.cloze_translate_cjklib(sel)
     self.note["Definition"] += sel + ": " + trans
     self.note["Stroke Order Links"] += edit_functions.get_stroke_order_links(sel)
 
-    tempText += "trans: " + trans + "\n"
+    temp_text += "trans: " + trans + "\n"
 
     self.web.eval("wrap('{{c%(high)d::', '%(pinyin)s}}');" %  \
-        {"high": highest, "pinyin": addedPinyin})
+        {"high": highest, "pinyin": added_pinyin})
 
     # Hack to update the GUI - should probalby replace w/something more appropriate.
     self.setNote(self.note)
 
-    #utils.showInfo(tempText)
+    #utils.showInfo(temp_text)
 
-def mySetupButtons(self):
-    but = self._addButton("cloze", lambda s=self: onChineseCloze(self), _("Ctrl+Shift+G"), _("Chinese Cloze deletion (Ctrl+Shift+G)"), text=u"[Pīnyīn]")
+def my_setup_buttons(self):
+    but = self._addButton("cloze", lambda s=self: on_chinese_cloze(self), _("Ctrl+Shift+G"), _("Chinese Cloze deletion (Ctrl+Shift+G)"), text=u"[Pīnyīn]")
     but.setFixedWidth(40)
 
-Editor.setupButtons = wrap(Editor.setupButtons, mySetupButtons)
+Editor.setupButtons = wrap(Editor.setupButtons, my_setup_buttons)
 
 addHook('editFocusLost', on_focus_lost)

@@ -19,14 +19,14 @@ fields_list = ["Text", "Pinyin", "Definition", "Extra", "Stroke Order Links"]
 # Card templates
 ######################################################################
 
-cardFront = u'''\
+card_front = u'''\
 <div class=tags>{{Deck}} {{#Tags}} -- {{/Tags}}{{Tags}}</div>
 <div class=question>
 <span class=chinese>{{cloze:Text}}</span>
 </div>
 '''
 
-cardBack = u'''\
+card_back = u'''\
 <div class=tags>{{Deck}} {{#Tags}} -- {{/Tags}}{{Tags}}</div>
 <div class=question>
 <span class=chinese>{{cloze:Text}}</span><br/>
@@ -42,7 +42,7 @@ cardBack = u'''\
 # Add model for chinese word to Anki
 ######################################################################
 
-def addModelChineseCloze(col):
+def add_model_chinese_cloze(col):
     mm = col.models
     m = mm.new("Chinese Cloze")
     m['type'] = MODEL_CLOZE
@@ -51,8 +51,8 @@ def addModelChineseCloze(col):
         fm = mm.newField(f)
         mm.addField(m, fm)
     t = mm.newTemplate(u"Cloze")
-    t['qfmt'] = cardFront
-    t['afmt'] = cardBack
+    t['qfmt'] = card_front
+    t['afmt'] = card_back
     mm.addTemplate(m, t)
 
     m['css'] += cloze_style
@@ -61,4 +61,4 @@ def addModelChineseCloze(col):
 
     return m
 
-anki.stdmodels.models.append(("Chinese Cloze", addModelChineseCloze))
+anki.stdmodels.models.append(("Chinese Cloze", add_model_chinese_cloze))

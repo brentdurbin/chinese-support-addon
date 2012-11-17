@@ -30,7 +30,7 @@ import edit_behavior
 ui_actions = {}
 dictionaries = [ "None", "CEDICT", "HanDeDict", "CFDICT"]
 transcriptions = ["Pinyin", "WadeGiles", "CantoneseYale", "Jyutping", "Bopomofo"]
-clozeOptions = ["AddPinyin", "NoAddPinyin"]
+cloze_options = ["Add Pinyin", "Do Not Add Pinyin"]
 
 edit_window = None
     
@@ -92,11 +92,11 @@ def set_transcription_Bopomofo():
     update_dict_action_checkboxes()
 
 def set_cloze_add_pinyin():
-    chinese_support_config.set_option("clozeOptions", "AddPinyin")
+    chinese_support_config.set_option("cloze_options", "Add Pinyin")
     update_dict_action_checkboxes()
 
 def set_cloze_no_add_pinyin():
-    chinese_support_config.set_option("clozeOptions", "NoAddPinyin")
+    chinese_support_config.set_option("cloze_options", "Do Not Add Pinyin")
     update_dict_action_checkboxes()
 
 
@@ -128,8 +128,8 @@ def update_dict_action_checkboxes():
         ui_actions[d].setChecked(d==chinese_support_config.options["dictionary"])
     for t in transcriptions:
         ui_actions[t].setChecked(t==chinese_support_config.options["transcription"])
-    for c in clozeOptions:
-        ui_actions[c].setChecked(c==chinese_support_config.options["clozeOptions"])
+    for c in cloze_options:
+        ui_actions[c].setChecked(c==chinese_support_config.options["cloze_options"])
 
 
 def myRebuildAddonsMenu(self):
@@ -150,8 +150,8 @@ def myRebuildAddonsMenu(self):
             ui_actions["Bopomofo"]=add_action("Bopomofo", sm, set_transcription_Bopomofo, True)
 
             sm=m.addMenu(_("Chinese Cloze Behavior"))
-            ui_actions["AddPinyin"]=add_action("Add Pinyin to Cloze", sm, set_cloze_add_pinyin, True)
-            ui_actions["NoAddPinyin"]=add_action("Do Not Add Pinyin to Cloze", sm, set_cloze_no_add_pinyin, True)
+            ui_actions["Add Pinyin"]=add_action("Add Pinyin to Cloze", sm, set_cloze_add_pinyin, True)
+            ui_actions["Do Not Add Pinyin"]=add_action("Do Not Add Pinyin to Cloze", sm, set_cloze_no_add_pinyin, True)
 
             update_dict_action_checkboxes()
             add_action(_("Editor Behavior"), m, edit_logic)
