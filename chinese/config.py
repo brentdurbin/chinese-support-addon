@@ -15,7 +15,7 @@ initial_options =  {
 'dictionary':'None',
 'transcription':'Pinyin',
 'speech':'Google TTS Mandarin',
-'cloze_options':'Add Pinyin'
+'cloze_options':'Do Not Add Pinyin'
 }
 
 startup_tips = [

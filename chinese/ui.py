@@ -99,7 +99,7 @@ def update_dict_action_checkboxes():
     for t in speech_options:
         ui_actions["speech_"+t].setChecked(t==chinese_support_config.options["speech"])
     for c in cloze_options:
-        ui_actions[c].setChecked(c==chinese_support_config.options["cloze_options"])
+        ui_actions["cloze_"+c].setChecked(c==chinese_support_config.options["cloze_options"])
 
 
 def myRebuildAddonsMenu(self):
@@ -115,9 +115,13 @@ def myRebuildAddonsMenu(self):
             sm=m.addMenu(_("Set speech language"))
             for i in speech_options:
                 ui_actions["speech_"+i]=add_action(i, sm, set_option_constructor("speech", i), True)
+            
             sm=m.addMenu(_("Chinese Cloze Behavior"))
-            ui_actions["Add Pinyin"]=add_action("Add Pinyin to Cloze", sm, set_cloze_add_pinyin, True)
-            ui_actions["Do Not Add Pinyin"]=add_action("Do Not Add Pinyin to Cloze", sm, set_cloze_no_add_pinyin, True)
+            for i in cloze_options:
+                ui_actions["cloze_"+i]=add_action(i, sm, set_option_constructor("cloze", i), True)
+
+            #ui_actions["Add Pinyin"]=add_action("Add Pinyin to Cloze", sm, set_cloze_add_pinyin, True)
+            #ui_actions["Do Not Add Pinyin"]=add_action("Do Not Add Pinyin to Cloze", sm, set_cloze_no_add_pinyin, True)
 
             add_action(_("Editor Behavior"), m, edit_logic)
             add_action(_("Setup instructions"), m, setup_plugin)
