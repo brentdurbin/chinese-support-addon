@@ -120,9 +120,6 @@ def myRebuildAddonsMenu(self):
             for i in cloze_options:
                 ui_actions["cloze_"+i]=add_action(i, sm, set_option_constructor("cloze", i), True)
 
-            #ui_actions["Add Pinyin"]=add_action("Add Pinyin to Cloze", sm, set_cloze_add_pinyin, True)
-            #ui_actions["Do Not Add Pinyin"]=add_action("Do Not Add Pinyin to Cloze", sm, set_cloze_no_add_pinyin, True)
-
             add_action(_("Editor Behavior"), m, edit_logic)
             add_action(_("Setup instructions"), m, setup_plugin)
             add_action(_("Help"), m, help_plugin)
