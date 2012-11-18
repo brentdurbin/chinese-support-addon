@@ -60,7 +60,7 @@ card_back = string.Template(u'''
 </div>
 
 <div class=chinese>
-{{#Hanzi1}}
+{{ruby:Hanzi}}
 {{#Hanzi2}} / {{/Hanzi2}}{{ruby:Hanzi2}} 
 {{#Hanzi3}} / {{/Hanzi3}}{{ruby:Hanzi3}} 
 {{#Hanzi4}} / {{/Hanzi4}}{{ruby:Hanzi4}} 
@@ -78,7 +78,7 @@ card_back = string.Template(u'''
 
 def add_model_ruby_synonyms(col):
     mm = col.models
-    m = mm.new("Chinese Ruby with synonyms")
+    m = mm.new("Chinese Ruby (+synonyms)")
     # Add fields
     for f in fields_list:
         fm = mm.newField(f)
@@ -99,4 +99,4 @@ def add_model_ruby_synonyms(col):
     # recognition card
     return m
 
-anki.stdmodels.models.append(("Chinese Ruby with synonyms", add_model_ruby_synonyms))
+anki.stdmodels.models.append(("Chinese Ruby (+synonyms)", add_model_ruby_synonyms))
