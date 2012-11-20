@@ -77,8 +77,10 @@ def on_chinese_cloze(self):
         added_pinyin = "::" + edit_functions.transcribe(sel)
 
     trans = translate.cloze_translate_cjklib(sel)
-    self.note["Definition"] += sel + ": " + trans
-    self.note["Stroke Order Links"] += edit_functions.get_stroke_order_links(sel)
+    if "Definition" in self.note:
+        self.note["Definition"] += sel + ": " + trans
+    if "Stroke Order Links" in self.note:
+        self.note["Stroke Order Links"] += edit_functions.get_stroke_order_links(sel)
 
     temp_text += "trans: " + trans + "\n"
 
@@ -91,8 +93,8 @@ def on_chinese_cloze(self):
     #utils.showInfo(temp_text)
 
 def my_setup_buttons(self):
-    but = self._addButton("cloze", lambda s=self: on_chinese_cloze(self), _("Ctrl+Shift+G"), _("Chinese Cloze deletion (Ctrl+Shift+G)"), text=u"[Pīnyīn]")
-    but.setFixedWidth(40)
+    but = self._addButton("cloze", lambda s=self: on_chinese_cloze(self), _("Ctrl+Shift+G"), _("Chinese Cloze Deletion + Definition (Ctrl+Shift+G)"), text=u"[Pīnyīn]+Def")
+    but.setFixedWidth(66)
 
 Editor.setupButtons = wrap(Editor.setupButtons, my_setup_buttons)
 
