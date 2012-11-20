@@ -30,7 +30,9 @@ card_back = u'''\
 <div class=tags>{{Deck}} {{#Tags}} -- {{/Tags}}{{Tags}}</div>
 <div class=question>
 <span class=chinese>{{cloze:Text}}</span><br/>
-{{Pinyin}}<br/>
+</div>
+<div class=answer>
+<div class=pinyin>{{Pinyin}}</div><br/>
 <div class=meaning>{{Definition}}</div><br/>
 <div class=note>{{Extra}}</div><br/>
 <div class=chinese>{{Stroke Order Links}}</div>

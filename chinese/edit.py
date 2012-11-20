@@ -79,6 +79,9 @@ def on_chinese_cloze(self):
     trans = translate.cloze_translate_cjklib(sel)
     if "Definition" in self.note:
         self.note["Definition"] += sel + ": " + trans
+        # Another opiton for the Definition format which adds the Transcription:
+        #def_py = edit_functions.transcribe(sel)
+        #self.note["Definition"] += sel + "[" + def_py + "]: " + trans
     if "Stroke Order Links" in self.note:
         self.note["Stroke Order Links"] += edit_functions.get_stroke_order_links(sel)
 

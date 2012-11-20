@@ -157,7 +157,7 @@ def transcribe(text, transcription=None, only_one=True, try_dict_first=True):
     Converts to specified transcription.
     Eg : 你 becomes nǐ (transcription="Pinyin", only_one=True)
 
-    if try_tict_first is set and transcription is Pinyin or Bopomofo, 
+    if try_dict_first is set and transcription is Pinyin or Bopomofo, 
     then first try to lookup word in the selected dictionary. 
     If it fails, or if there were multiple possible transcriptions, then 
     look up each character one by one. 

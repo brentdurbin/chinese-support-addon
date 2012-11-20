@@ -21,6 +21,7 @@ margin-bottom:30pt;
 padding-top:15px;
 padding-bottom:15px;}
 .chinese { font-size: 30px }
+
 .tags {color:gray;text-align:right;font-size:10pt;}
 .note {color:gray;font-size:12pt;margin-top:20pt;}
 .hint {font-size:12pt;}
@@ -42,10 +43,11 @@ background-color: rgb(255, 239, 213);
 border-style:dotted;
 border-width:1pt;
 margin-top:15pt;
-margin-bottom:30pt;
+margin-bottom:15pt;
 padding-top:15px;
 padding-bottom:15px;}
 .chinese { font-size: 30px }
+.pinyin { font-size: 15px }
 .tags {color:gray;text-align:right;font-size:10pt;}
 .note {color:gray;font-size:12pt;margin-top:20pt;}
 .hint {font-size:12pt;}
@@ -57,7 +59,7 @@ padding-bottom:15px;}
 .tone5 {color: gray;}
 
 .cloze {
- font-weight: bold;
+ //font-weight: bold;
  color: blue;
 }
 '''

@@ -118,7 +118,7 @@ def myRebuildAddonsMenu(self):
             
             sm=m.addMenu(_("Chinese Cloze Behavior"))
             for i in cloze_options:
-                ui_actions["cloze_"+i]=add_action(i, sm, set_option_constructor("cloze", i), True)
+                ui_actions["cloze_"+i]=add_action(i, sm, set_option_constructor("cloze_options", i), True)
 
             add_action(_("Editor Behavior"), m, edit_logic)
             add_action(_("Setup instructions"), m, setup_plugin)
